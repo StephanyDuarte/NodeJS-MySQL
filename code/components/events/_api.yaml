@@ -1,0 +1,61 @@
+tags:
+  - name: events
+    description: "Events routes"
+
+
+components:
+  schemas:
+    Address:
+      type: object
+      required:
+        - local
+        - street
+        - number
+        - district
+        - state
+        - town
+        - cep
+        - spareInfo
+      properties:
+        local:
+          type: string
+          minLength: 5
+          maxLength: 100
+          example: Edificio Mario de Andrade  
+        street:
+          type: string
+          minLength: 3
+          maxLength: 100
+          example: Rua Governador Dutra
+        number:
+          type: integer
+          example: 256
+        district:
+          type: string
+          minLength: 3
+          maxLength: 100
+          example: Centro
+        state:
+          type: string
+          minLength: 3
+          maxLength: 100
+          example: Paraná
+        town:
+          type: string
+          minLength: 3
+          maxLength: 100
+          example: Curitiba
+        cep:
+          type: string
+          minLength: 8
+          maxLength: 11
+          example: 123.456-890
+        spareInfo:
+          type: string
+          minLength: 0
+          maxLength: 100
+          example: salao de festas
+
+
+
+

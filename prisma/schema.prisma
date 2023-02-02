@@ -1,0 +1,80 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          Int     @id @default(autoincrement())
+  username    String  @unique
+  password    String
+  name        String  @default("")
+  roles       Role[]
+  events      Event[]
+  ownAddress  Address? @relation(fields: [addressId], references: [id])
+  addressId   Int      
+}
+
+model Role {
+  name   String   @id
+  users  User[] 
+}
+
+model Event {
+  eventId       Int        @id @default(autoincrement())
+  user          User?      @relation(fields: [userId], references: [id])
+  userId        Int
+  name          String     
+  description   String
+  free          Boolean
+  price         Float
+  start_time    DateTime
+  end_time      DateTime
+  allowedAge    Int
+  untilAge      Int
+  contacts      Contact[]
+  categories    Category[]
+  addresses     Address[]
+}
+
+model Address {
+  id         Int        @id @default(autoincrement())
+  local      String  
+  street     String
+  number     Int
+  district   String  
+  state      String
+  town       String
+  cep        String
+  spareInfo  String
+  events     Event[]
+  user       User[]
+}
+
+model Contact {
+  id          Int     @id @default(autoincrement())
+  events      Event[]  
+  name        String  
+  email       String
+  cellphone   String
+  whatsApp    String
+}
+
+model Category {
+  type  String  @id
+  events  Event[] 
+}
+
+
+//database.mjs
+// Criar as categorias
+
+// one - to -one criar relation
+// fazer validador de cep com o axios

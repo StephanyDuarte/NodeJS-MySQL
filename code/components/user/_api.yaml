@@ -1,0 +1,100 @@
+tags:
+  - name: auth
+    description: "Authentication routes"
+  - name: profile
+    description: "User profile information"
+  - name: server_info
+    description: "Server information"
+
+
+components:
+  schemas:
+    UsernamePassword:
+      type: object
+      required:
+        - username
+        - password
+      properties:
+        username:
+          type: string
+          minLength: 4
+          maxLength: 30
+          example: stephany  
+        password:
+          type: string
+          minLength: 5
+          maxLength: 30
+          example: mypassword
+          
+    CreateAccount:
+      type: object
+      required:
+        - username
+        - password
+        - name
+      properties:
+        username:
+          type: string
+          minLength: 5
+          maxLength: 30
+          example: stephany  
+        password:
+          type: string
+          minLength: 5
+          maxLength: 30
+          example: mypassword
+        name:
+          type: string
+          example: Stephany
+          minLength: 3
+
+    UpdateUser:
+      type: object
+      required:
+        - username
+        - password
+        - name
+      properties:
+        username:
+          type: string
+          example: stephany  
+        password:
+          type: string
+          example: mypassword
+        name:
+          type: string
+          example: Stephany
+  
+    Id:
+      type: integer
+      format: int32
+      minimum: 1
+      example: 150
+
+    Name:
+      type: string
+      example: MyNewName
+
+
+  parameters:
+    Id:
+      in: path
+      name: id
+      description: Unique id
+      required: true
+      schema:
+        $ref: '#/components/schemas/Id'
+
+    # Name:
+    #   in: body
+    #   name: name
+    #   description: update name
+    #   required: true
+    #   schema:
+    #     $ref: '#/components/schemas/Name'
+
+  securitySchemes:
+    JWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
